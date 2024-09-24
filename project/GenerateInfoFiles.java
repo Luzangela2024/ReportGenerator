@@ -26,7 +26,7 @@ public class GenerateInfoFiles {
 		for (Integer i = 0; i < Helpers.totalSalesMen; i++) {
 			List<String> sellerInfo = records.get(i + 1);
 
-			Providers.createSalesMenFile(Helpers.totalSalesRecords, sellerInfo.get(2), Long.parseLong(sellerInfo.get(1)), sellerInfo.get(0));
+			Providers.createSalesMenFile(Helpers.totalSalesMen, sellerInfo.get(2), Long.parseLong(sellerInfo.get(1)), sellerInfo.get(0));
 		}
 	}
 	

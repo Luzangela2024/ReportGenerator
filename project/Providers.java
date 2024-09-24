@@ -76,7 +76,7 @@ public class Providers {
 	
 	public static void createSalesMenFile( int randomSalesCount, String name, long id, String docType ) throws IOException {
 		
-		File sellerCsvFile = new File(name + "-" + id + ".csv");
+		File sellerCsvFile = new File("Seller_" + name + "_" + id + ".csv");
 		FileWriter fileWriter = new FileWriter(sellerCsvFile);
 		
 		fileWriter.write(docType + ";" + id + "\n");
