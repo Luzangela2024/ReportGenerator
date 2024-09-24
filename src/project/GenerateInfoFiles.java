@@ -1,17 +1,83 @@
 package project;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+public class GenerateInfoFiles {
 
-public class Providers {
-
+	
 	static int totalProducts;
-	final static String separator = ";";
+	final static String SEPARATOR = ";";
+	static int totalSalesMen = 15;
+	static int totalSalesRecords = 10;
+	
+	public static void main(String[] args) {
+		try {
+			createFiles();
+			System.out.println("La generación de archivos aleatorios ha sido exitosa");
+		} catch (IOException e) {
+			System.err.println("Ocurrió un error mientras se generaban los archivos aleatorios: " + e.getMessage());
+		}
+		
+	}
+	
+	
+	static List<List<String>> readCsv(String fileName) throws FileNotFoundException, IOException {
+		List<List<String>> records = new ArrayList<>();
+		new ArrayList<>();
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName + ".csv"))) {
+			String line;
+			while ((line = br.readLine()) != null) {
+				String[] values = line.split(SEPARATOR);
+				records.add(Arrays.asList(values));
+			}
+		}
+
+		return records;
+	}
+	
+	public static void createFiles()  throws IOException{
+		createProductsFile(10);
+		
+		
+		
+		createSalesManInfoFile(15);
+		
+		// Leer elementos en salesManInfoFile
+		List<List<String>> records = readCsv("salesManInfoFile");
+
+		// Generar archivos de ventas por vendedor
+		for (Integer i = 0; i < totalSalesMen; i++) {
+			List<String> sellerInfo = records.get(i + 1);
+
+			createSalesMenFile(10, sellerInfo.get(2), Long.parseLong(sellerInfo.get(1)), sellerInfo.get(0));
+		}
+	}
+	
+	static List<String> getProductsName(){
+		
+		 List<String> productsName = Arrays.asList("Iphone 14", "Iphone 15 pro max", "Samsung Galaxy S22 Ultra", "Xiaomi 12",
+				"Oppo Reno 7 5g", "Vivo V25 Pro", "Xiaomi Redmi Note 12", "Honor Magic 5 Lite 5G", "Samsung Galaxy S20",
+				"Moto g4");
+		 
+		 return productsName;
+	}
+	
+	static List<String> getProductsId(){
+		
+		 List<String> productsId = Arrays.asList("AXE23", "AXE12", "BWR09", "CYG21","TTI12", 
+				 "QWC27", "CYG19", "PUY07", "BWR13","DEF13");
+		 
+		 return productsId;
+	}
 	
 	public static void createProductsFile( int productsCount  ) throws IOException{
 		totalProducts = productsCount;
@@ -25,10 +91,10 @@ public class Providers {
 		for (int i = 0; i < productsCount; i++) {
 			StringBuilder productInfo = new StringBuilder();
 			
-			productInfo.append(Helpers.getProductsId().get(i));
-			productInfo.append(separator);
-			productInfo.append(Helpers.getProductsName().get(i));
-			productInfo.append(separator);
+			productInfo.append(getProductsId().get(i));
+			productInfo.append(SEPARATOR);
+			productInfo.append(getProductsName().get(i));
+			productInfo.append(SEPARATOR);
 			productInfo.append(getRandomNumber(1000000, 3500000));
 			productInfo.append("\n");
 			
@@ -39,7 +105,7 @@ public class Providers {
 		
 	}
 	
-	public static void createSalesManInfoFile( int salesmanCount ) throws IOException{
+	public static void createSalesManInfoFile( int salesmanCount )  throws IOException{
 		List<String> names = Arrays.asList("Alejandro", "Andrea", "Carlos", "Carmen", "Daniel", "Daniela", "Eduardo",
 				"Elena", "Fernando", "Isabel", "Javier", "Jimena", "José", "Julia", "Luis", "Lucía", "Manuel", "María",
 				"Miguel", "Marta", "Óscar", "Olivia", "Pablo", "Paula", "Rafael", "Sara", "Sergio", "Sofía", "Víctor",
@@ -61,11 +127,11 @@ public class Providers {
 			StringBuilder salesManInfo = new StringBuilder();
 
 			salesManInfo.append(docTypes.get(getRandomNumber(0, 1)));
-			salesManInfo.append(separator);
+			salesManInfo.append(SEPARATOR);
 			salesManInfo.append(Long.toString(118324456 + i));
-			salesManInfo.append(separator);
+			salesManInfo.append(SEPARATOR);
 			salesManInfo.append(names.get(getRandomNumber(0, 29)));
-			salesManInfo.append(separator);
+			salesManInfo.append(SEPARATOR);
 			salesManInfo.append(lastNames.get(getRandomNumber(0, 29)) + " " + lastNames.get(getRandomNumber(0, 29)));
 			salesManInfo.append("\n");
 
@@ -76,7 +142,7 @@ public class Providers {
 	
 	public static void createSalesMenFile( int randomSalesCount, String name, long id, String docType ) throws IOException {
 		
-		File sellerCsvFile = new File("Seller_" + name + "_" + id + ".csv");
+		File sellerCsvFile = new File(name + "-" + id + ".csv");
 		FileWriter fileWriter = new FileWriter(sellerCsvFile);
 		
 		fileWriter.write(docType + ";" + id + "\n");
@@ -84,10 +150,10 @@ public class Providers {
 		for (int i = 0; i < randomSalesCount; i++) {
 			StringBuilder sellerInfo = new StringBuilder();
 
-			sellerInfo.append(Helpers.getProductsId().get(getRandomNumber(0, totalProducts - 1)));
-			sellerInfo.append(separator);
+			sellerInfo.append(getProductsId().get(getRandomNumber(0, totalProducts - 1)));
+			sellerInfo.append(SEPARATOR);
 			sellerInfo.append(getRandomNumber(1, 30));
-			sellerInfo.append(separator);
+			sellerInfo.append(SEPARATOR);
 			sellerInfo.append("\n");
 
 			fileWriter.write(sellerInfo.toString());
@@ -103,7 +169,5 @@ public class Providers {
 		return randomNum;
 	}
 	
+	
 }
-
-
-
