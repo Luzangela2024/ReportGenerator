@@ -20,6 +20,7 @@ public class GenerateInfoFiles {
 	static int totalSalesRecords = 10;
 	
 	public static void main(String[] args) {
+		// Validamos que el programa se ejecute de manera correcta, en caso de que no, controlamos el error con una alerta
 		try {
 			createFiles();
 			System.out.println("La generación de archivos aleatorios ha sido exitosa");
@@ -29,7 +30,7 @@ public class GenerateInfoFiles {
 		
 	}
 	
-	
+	// Método para leer los archivos CSV creados
 	static List<List<String>> readCsv(String fileName) throws FileNotFoundException, IOException {
 		List<List<String>> records = new ArrayList<>();
 		new ArrayList<>();
@@ -44,6 +45,7 @@ public class GenerateInfoFiles {
 		return records;
 	}
 	
+	// pasamos la lógica de creación a varios métodos y los llamamos dentro de un método "controlador"
 	public static void createFiles()  throws IOException{
 		createProductsFile(10);
 		
@@ -163,7 +165,7 @@ public class GenerateInfoFiles {
 		
 	}
 	
-	
+	// método auxiliar para generar números de manera aleatoria
 	private static int getRandomNumber(int min, int max) {
 		int randomNum = ThreadLocalRandom.current().nextInt(min, max + 1);
 		return randomNum;

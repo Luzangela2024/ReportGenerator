@@ -14,22 +14,33 @@ import java.util.Map;
 public class Main {
 	
 	public static void main(String[] args) throws IOException {
-		List<List<String>> productsInfo = GenerateInfoFiles.readCsv("productsInfoFile");
+		// Validamos que el programa se ejecute de manera correcta, en caso de que no, controlamos el error con una alerta
+		try {
+			createReports();
+			System.out.println("La generación de reportes ha sido exitosa");
+		} catch (IOException e) {
+			System.err.println("Ocurrió un error mientras se generaban los reportes: " + e.getMessage());
+		}
 
+	}
+	
+	
+	public static void createReports()  throws IOException{
+		List<List<String>> productsInfo = GenerateInfoFiles.readCsv("productsInfoFile");
 		
 		
+		// Generamos el archivo CSV para el reporte de empleados
 		File salesManCsvFile = new File("salesManReport.csv");
 		FileWriter fileWriter = new FileWriter(salesManCsvFile);
 		
 		List<List<String>> totalSalesMen = GenerateInfoFiles.readCsv("salesManInfoFile");
-		
-		
 		
 		fileWriter.write("TipoDocumento;NumeroDocumento;NombreVendedor;ApellidosVendedor;CantidadDineroGenerado\n");
 		
 		HashMap<String, Integer> allProductsQty = new HashMap<>();
 		HashMap<String, Long> orderedSalesMen = new HashMap<>();
 		
+		//Obtenemos la cantidad vendida total de un producto revisando su venta por cada vendedor
 		for(Integer i = 0; i < GenerateInfoFiles.totalSalesMen; i++) {
 			List<List<String>> perfil = GenerateInfoFiles.readCsv(totalSalesMen.get(i+1).get(2) + "-" + totalSalesMen.get(i + 1).get(1));
 		
@@ -103,12 +114,12 @@ public class Main {
         
         List<Map.Entry<String, Long>> orderedTotalSold = new ArrayList<>(mapOrdenado.entrySet());
 
-		
-		for(Integer i = 0; i < GenerateInfoFiles.totalSalesMen; i++) {
-			List<List<String>> perfil = GenerateInfoFiles.readCsv(totalSalesMen.get(i+1).get(2) + "-" + totalSalesMen.get(i + 1).get(1));
+     // Recorremos el array con los empleados ordenados (por cédula) y el array normal, comparamos en el segundo for para insertarlo en el CSV
+		for(Integer i = 0; i < GenerateInfoFiles.totalSalesMen; i++) {			
 			StringBuilder line = new StringBuilder();
 			for(Integer j = 0; j < GenerateInfoFiles.totalSalesMen; j++) {
-				if(totalSalesMen.get(j + 1).get(1).toString().equals(orderedTotalSold.get(j).toString().substring(0,9))) {
+				if(totalSalesMen.get(j + 1).get(1).toString().equals(orderedTotalSold.get(i).toString().substring(0,9))) {
+					List<List<String>> perfil = GenerateInfoFiles.readCsv(totalSalesMen.get(j+1).get(2) + "-" + totalSalesMen.get(j + 1).get(1));
 					
 					line.append(perfil.get(0).get(0));
 					line.append(GenerateInfoFiles.SEPARATOR);
@@ -118,19 +129,20 @@ public class Main {
 					line.append(GenerateInfoFiles.SEPARATOR);
 					line.append(totalSalesMen.get(i+1).get(3));
 					line.append(GenerateInfoFiles.SEPARATOR);
-					line.append(orderedTotalSold.get(j).toString().substring(9));
+					line.append(orderedTotalSold.get(i).toString().substring(9));
 					
 					line.append("\n");
 					
 					fileWriter.write(line.toString());
 				}
 			}
-	
-			
-			
 		}
+	
+		fileWriter.close();
+		// Cerramos la creación del archivo de reportes de empleados
+
 		
-		
+		// Generamos el archivo CSV para el reporte de productos
 		File productsCsvFile = new File("productReport.csv");
 		FileWriter prodcutsFileWrite = new FileWriter(productsCsvFile);
 		
@@ -169,7 +181,7 @@ public class Main {
         List<Map.Entry<String, Integer>> orderedQuantity = new ArrayList<>(mapaOrdenado.entrySet());
    
 		
-		
+		// Recorremos el array con los productos ordenados para insertarlos en el CSV
 		for(Integer i = 0; i < mapaOrdenado.size(); i++) {
 			int quantity = Integer.parseInt(orderedQuantity.get(i).toString().substring(6));
 			StringBuilder infoProduct = new StringBuilder();
@@ -186,10 +198,8 @@ public class Main {
 			
 			prodcutsFileWrite.write(infoProduct.toString());
 		}
-		
-		fileWriter.close();
 		prodcutsFileWrite.close();
-
+		// Cerramos la creación del archivo de reportes de productos
 	}
 
 }
