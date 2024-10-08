@@ -1,0 +1,11 @@
+IDProducto;NombreProducto;PrecioPorUnidad
+AXE23;Iphone 14;2134777
+AXE12;Iphone 15 pro max;1091606
+BWR09;Samsung Galaxy S22 Ultra;1226621
+CYG21;Xiaomi 12;2275041
+TTI12;Oppo Reno 7 5g;2738319
+QWC27;Vivo V25 Pro;1794210
+CYG19;Xiaomi Redmi Note 12;1976984
+PUY07;Honor Magic 5 Lite 5G;1035666
+BWR13;Samsung Galaxy S20;1637955
+DEF13;Moto g4;1837570

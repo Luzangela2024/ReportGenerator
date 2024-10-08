@@ -34,7 +34,7 @@ public class GenerateInfoFiles {
 	static List<List<String>> readCsv(String fileName) throws FileNotFoundException, IOException {
 		List<List<String>> records = new ArrayList<>();
 		new ArrayList<>();
-		try (BufferedReader br = new BufferedReader(new FileReader(fileName + ".csv"))) {
+		try (BufferedReader br = new BufferedReader(new FileReader(fileName + ".txt"))) {
 			String line;
 			while ((line = br.readLine()) != null) {
 				String[] values = line.split(SEPARATOR);
@@ -84,7 +84,7 @@ public class GenerateInfoFiles {
 	public static void createProductsFile( int productsCount  ) throws IOException{
 		totalProducts = productsCount;
 		
-		File productCsvFile = new File("productsInfoFile.csv");
+		File productCsvFile = new File("productsInfoFile.txt");
 		FileWriter fileWriter = new FileWriter(productCsvFile);
 		
 		fileWriter.write("IDProducto;NombreProducto;PrecioPorUnidad\n");
@@ -120,7 +120,7 @@ public class GenerateInfoFiles {
 		
 		List<String> docTypes = Arrays.asList("CC", "CE");
 		
-		File salesManCsvFile = new File("salesManInfoFile.csv");
+		File salesManCsvFile = new File("salesManInfoFile.txt");
 		FileWriter fileWriter = new FileWriter(salesManCsvFile);
 		
 		fileWriter.write("TipoDocumento;NumeroDocumento;Nombres;Apellidos\n");
@@ -144,7 +144,7 @@ public class GenerateInfoFiles {
 	
 	public static void createSalesMenFile( int randomSalesCount, String name, long id, String docType ) throws IOException {
 		
-		File sellerCsvFile = new File(name + "-" + id + ".csv");
+		File sellerCsvFile = new File(name + "-" + id + ".txt");
 		FileWriter fileWriter = new FileWriter(sellerCsvFile);
 		
 		fileWriter.write(docType + ";" + id + "\n");
