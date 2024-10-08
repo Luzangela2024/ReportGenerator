@@ -1,0 +1,18 @@
+Conclusiones:
+1. Lo aprendido durante el desarrollo del proyecto. 
+	La importancia de la programación dentro de los procesos contables (aplicado a la carrera de contaduría pública), de recopilación, 	manejo y gestión de información para la generación de informes de manera correcta y ordenada.
+
+2. Posibles aplicaciones en su vida profesional de las destrezas y conocimientos adquiridos y practicados durante el desarrollo del proyecto. 
+	a. Reconocer lenguaje propio de programación desconocido
+	b. Conocimiento e identificación de un archivo en texto plano
+	c. Búsqueda efectiva de información en internet
+	d. Descubrimiento de la IA como herramienta de apoyo para la creación de proyectos
+	e. Conocimiento de la herramienta Eclipse y el lenguaje de programación Java para mejor comprensión de ambientes de trabajo en 			equipos multidisciplinarios
+	f. Recolección de grandes cantidades de información optimizando el uso de memoria RAM
+ 
+3. Las dificultades presentadas durante el desarrollo del proyecto.
+	a. Comunicación con los compañeros
+	b. Escaso conocimiento de programación
+	c. Los tutoriales de Java algunos tenían errores o estaban muy desactualizados, además de que utilizaban lenguaje muy técnico y 		constantemente debíamos consultarlo.
+	d. El manejo del programa Git y el repositorio remoto Github
+	e. Correcta comprensión de la herramienta ChatGPT
